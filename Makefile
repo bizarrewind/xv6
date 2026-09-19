@@ -151,7 +151,6 @@ UPROGS=\
 	$U/_dorphan\
 	$U/_sync\
 	$U/_hellotest\
-	$U/_curse\
 	$U/_greet\
 
 
