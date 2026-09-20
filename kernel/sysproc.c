@@ -132,3 +132,8 @@ greet(void)
   }
   return 0;
 }
+uint64
+sys_freemem(void)
+{
+  return count_free_mem();
+}

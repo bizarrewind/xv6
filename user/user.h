@@ -26,9 +26,10 @@ int pause(int);
 int uptime(void);
 int sync(void);
 
-// custom  syscall hello 
+// custom  syscall hello
 int hello(int);
 int greet(int);
+uint64 freemem(void);
 
 // ulib.c
 int stat(const char *, struct stat *);

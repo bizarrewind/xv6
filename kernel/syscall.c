@@ -104,6 +104,7 @@ extern uint64 sys_mkdir(void);
 extern uint64 sys_close(void);
 extern uint64 sys_sync(void);
 //custom syscalls
+extern uint64 sys_freemem(void);
 extern uint64 sys_hello(void);
 extern uint64 greet(void);
 
@@ -135,8 +136,8 @@ static uint64 (*syscalls[])(void) = {
   [SYS_sync]    = sys_sync,
 //custom stuff
   [SYS_hello]   = sys_hello,
-  [SYS_curse] = curse,
   [SYS_greet] = greet,
+  [SYS_freemem] = sys_freemem,
 };
 
 void

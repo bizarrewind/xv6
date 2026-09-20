@@ -152,6 +152,7 @@ UPROGS=\
 	$U/_sync\
 	$U/_hellotest\
 	$U/_greet\
+	$U/_memtest\
 
 
 fs.img: mkfs/mkfs README $(UPROGS)
