@@ -48,4 +48,5 @@ entry("greet");
 entry("freemem");
 entry("sysinfo");
 entry("getprocs");
+entry("vmstat");
 

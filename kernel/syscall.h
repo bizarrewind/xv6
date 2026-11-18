@@ -26,4 +26,5 @@
 #define SYS_greet   25
 #define SYS_sysinfo 26
 #define SYS_getprocs 27
+#define SYS_vmstat   28
 

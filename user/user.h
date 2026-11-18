@@ -3,6 +3,7 @@
 struct stat;
 struct sysinfo;
 struct procinfolist;
+struct vmstat;
 
 // system calls
 int fork(void);
@@ -34,6 +35,7 @@ int greet(int);
 uint64 freemem(void);
 int sysinfo(struct sysinfo *);
 int getprocs(struct procinfolist *);
+int vmstat(struct vmstat *);
 
 // ulib.c
 int stat(const char *, struct stat *);

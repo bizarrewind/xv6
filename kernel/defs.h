@@ -147,6 +147,8 @@ void            syscall();
 
 // trap.c
 extern uint     ticks;
+extern int      total_cow_faults;    // cow page fault count
+extern int      total_demand_faults; // demand paging fault count
 void            trapinit(void);
 void            trapinithart(void);
 extern struct spinlock tickslock;

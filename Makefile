@@ -156,6 +156,7 @@ UPROGS=\
 	$U/_sysinfotest\
 	$U/_cowtest\
 	$U/_ps\
+	$U/_vmbench\
 
 
 

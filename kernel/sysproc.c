@@ -8,6 +8,7 @@
 #include "vm.h"
 #include "sysinfo.h"
 #include "pinfo.h"
+#include "vmstat.h"
 
 uint64
 sys_exit(void)
@@ -173,3 +174,26 @@ sys_getprocs(void)
   return pil.nproc;
 }
 
+
+// vmstat syscall - returns page fault counts and free mem
+// user passes pointer to vmstat struct, we fill it
+uint64
+sys_vmstat(void)
+{
+  uint64 addr;
+  struct proc *p = myproc();
+  struct vmstat vs;
+
+  // get the pointer arg from user
+  argaddr(0, &addr);
+
+  vs.cow_faults    = total_cow_faults;
+  vs.demand_faults = total_demand_faults;
+  vs.free_pages    = count_free_mem() / PGSIZE; // bytes to pages
+
+  // copy the struct to user space
+  if(copyout(p->pagetable, p->sz, addr, (char*)&vs, sizeof(vs)) < 0)
+    return -1;
+
+  return 0;
+}

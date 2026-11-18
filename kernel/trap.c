@@ -9,6 +9,11 @@
 struct spinlock tickslock;
 uint ticks;
 
+// counters for how many page faults happened
+// cow = copy on write, demand = lazy sbrk pages
+int total_cow_faults = 0;
+int total_demand_faults = 0;
+
 extern char trampoline[], uservec[];
 
 // in kernelvec.S, calls kerneltrap().
@@ -70,6 +75,7 @@ usertrap(void)
     // ok
   } else if (r_scause() == 15 && iscowpage(p->pagetable, r_stval())) {
     p->pagefault_count++;
+    total_cow_faults++; // got a cow fault, increment
     if (cowfault(p->pagetable, r_stval()) < 0) {
       setkilled(p);
     }
@@ -77,6 +83,7 @@ usertrap(void)
              vmfault(p->pagetable, p->sz, r_stval(),
                      (r_scause() == 13) ? 1 : 0) != 0) {
     p->pagefault_count++;
+    total_demand_faults++; // lazy page got accessed, count it
     // page fault on lazily-allocated page
   } else {
     printk("usertrap(): unexpected scause 0x%lx pid=%d\n", r_scause(), p->pid);
