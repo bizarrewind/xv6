@@ -5,6 +5,7 @@
 #include "spinlock.h"
 #include "proc.h"
 #include "defs.h"
+#include "pinfo.h"
 
 struct cpu cpus[NCPU];
 
@@ -716,3 +717,28 @@ count_procs(void)
   return count;
 }
 
+
+// Fill a procinfolist with info about all active processes.
+// Returns the number of processes written.
+int
+getprocs(struct procinfolist *pil)
+{
+  struct proc *p;
+  int n = 0;
+
+  for (p = proc; p < &proc[NPROC] && n < PINFO_MAXPROCS; p++) {
+    acquire(&p->lock);
+    if (p->state != UNUSED) {
+      pil->procs[n].pid          = p->pid;
+      pil->procs[n].state        = (int)p->state;
+      pil->procs[n].sz           = p->sz;
+      pil->procs[n].pagefaults   = p->pagefault_count;
+      pil->procs[n].syscall_count= p->syscall_count;
+      strncpy(pil->procs[n].name, p->name, PINFO_NAMELEN);
+      n++;
+    }
+    release(&p->lock);
+  }
+  pil->nproc = n;
+  return n;
+}

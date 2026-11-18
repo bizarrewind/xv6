@@ -9,6 +9,7 @@ struct spinlock;
 struct sleeplock;
 struct stat;
 struct superblock;
+struct procinfolist;
 
 // bio.c
 void            binit(void);
@@ -88,6 +89,7 @@ void            kexit(int);
 int             kfork(void);
 int             growproc(int);
 uint64          count_procs(void);
+int             getprocs(struct procinfolist *);
 void            proc_mapstacks(pagetable_t);
 pagetable_t     proc_pagetable(struct proc *);
 void            proc_freepagetable(pagetable_t, uint64);

@@ -47,4 +47,5 @@ entry("hello");
 entry("greet");
 entry("freemem");
 entry("sysinfo");
+entry("getprocs");
 

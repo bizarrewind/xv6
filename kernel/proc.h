@@ -101,4 +101,8 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+
+  // process statistics for ps
+  uint64 pagefault_count;  // cumulative page faults handled
+  uint64 syscall_count;    // cumulative syscalls made
 };

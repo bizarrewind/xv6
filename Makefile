@@ -155,6 +155,7 @@ UPROGS=\
 	$U/_memtest\
 	$U/_sysinfotest\
 	$U/_cowtest\
+	$U/_ps\
 
 
 

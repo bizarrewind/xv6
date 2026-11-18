@@ -108,6 +108,7 @@ extern uint64 sys_freemem(void);
 extern uint64 sys_hello(void);
 extern uint64 greet(void);
 extern uint64 sys_sysinfo(void);
+extern uint64 sys_getprocs(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -136,10 +137,11 @@ static uint64 (*syscalls[])(void) = {
   [SYS_close]   = sys_close,
   [SYS_sync]    = sys_sync,
 //custom stuff
-  [SYS_hello]   = sys_hello,
-  [SYS_greet] = greet,
-  [SYS_freemem] = sys_freemem,
-  [SYS_sysinfo] = sys_sysinfo,
+  [SYS_hello]      = sys_hello,
+  [SYS_greet]      = greet,
+  [SYS_freemem]    = sys_freemem,
+  [SYS_sysinfo]    = sys_sysinfo,
+  [SYS_getprocs]   = sys_getprocs,
 };
 
 void
@@ -152,6 +154,7 @@ syscall(void)
   if (num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     // Use num to lookup the system call function for num, call it,
     // and store its return value in p->trapframe->a0
+    p->syscall_count++;
     p->trapframe->a0 = syscalls[num]();
   } else {
     printk("%d %s: unknown sys call %d\n", p->pid, p->name, num);

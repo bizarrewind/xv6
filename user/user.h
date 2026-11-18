@@ -2,6 +2,7 @@
 
 struct stat;
 struct sysinfo;
+struct procinfolist;
 
 // system calls
 int fork(void);
@@ -32,6 +33,7 @@ int hello(int);
 int greet(int);
 uint64 freemem(void);
 int sysinfo(struct sysinfo *);
+int getprocs(struct procinfolist *);
 
 // ulib.c
 int stat(const char *, struct stat *);
