@@ -24,3 +24,5 @@
 #define SYS_hello   23
 #define SYS_freemem 24
 #define SYS_greet   25
+#define SYS_sysinfo 26
+

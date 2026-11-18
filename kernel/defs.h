@@ -61,6 +61,9 @@ void*           kalloc(void);
 void            kfree(void *);
 void            kinit(void);
 uint64          count_free_mem(void);
+void            kref_inc(void *);
+int             kref_get(void *);
+void            kref_set(void *, int);
 
 // log.c
 void            initlog(int, struct superblock*);
@@ -84,6 +87,7 @@ int             cpuid(void);
 void            kexit(int);
 int             kfork(void);
 int             growproc(int);
+uint64          count_procs(void);
 void            proc_mapstacks(pagetable_t);
 pagetable_t     proc_pagetable(struct proc *);
 void            proc_freepagetable(pagetable_t, uint64);
@@ -171,6 +175,8 @@ int             copyin(pagetable_t, uint64, char *, uint64, uint64);
 int             copyinstr(pagetable_t, uint64, char *, uint64, uint64);
 int             ismapped(pagetable_t, uint64);
 uint64          vmfault(pagetable_t, uint64, uint64, int);
+int             cowfault(pagetable_t, uint64);
+int             iscowpage(pagetable_t, uint64);
 
 // plic.c
 void            plicinit(void);

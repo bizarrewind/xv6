@@ -6,6 +6,7 @@
 #include "spinlock.h"
 #include "proc.h"
 #include "vm.h"
+#include "sysinfo.h"
 
 uint64
 sys_exit(void)
@@ -136,4 +137,21 @@ uint64
 sys_freemem(void)
 {
   return count_free_mem();
+}
+
+uint64
+sys_sysinfo(void)
+{
+  uint64 addr;
+  struct proc *p = myproc();
+  struct sysinfo info;
+
+  argaddr(0, &addr);
+
+  info.freemem = count_free_mem();
+  info.nproc = count_procs();
+
+  if (copyout(p->pagetable, p->sz, addr, (char *)&info, sizeof(info)) < 0)
+    return -1;
+  return 0;
 }

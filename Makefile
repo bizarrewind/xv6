@@ -153,6 +153,10 @@ UPROGS=\
 	$U/_hellotest\
 	$U/_greet\
 	$U/_memtest\
+	$U/_sysinfotest\
+	$U/_cowtest\
+
+
 
 
 fs.img: mkfs/mkfs README $(UPROGS)
